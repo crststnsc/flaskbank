@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Conversation with {{ contact }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+
+    <div class="conversation-container">
+        <h1>Conversation with {{ contact }}</h1>
+
+        <div class="messages-container">
+            {% for msg in messages %}
+            <div class="message {{ 'my-message' if msg['sender'] == current_user else 'other-message' }}">
+                <strong>{{ msg['sender'] }}</strong>
+                <div class="message-content">
+                    ${{ "%.2f"|format(msg['amount']) }} - "{{ msg['message']|safe }}"
+                </div>
+                <small class="timestamp">{{ msg['timestamp'] }}</small>
+            </div>
+            {% endfor %}
+        </div>
+
+        <p>
+            <a href="{{ url_for('transfer') }}" class="btn back-btn">
+                <img src="{{ url_for('static', filename='icons/arrow-left-solid.svg') }}" class="icon"
+                    alt="Back to Transfer">
+                Back to Transfer
+            </a>
+        </p>
+    </div>
+
+</body>
+
+</html>

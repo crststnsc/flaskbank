@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transfer Money</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+
+    <div class="container">
+        {% if error %}
+        <script>
+            alert("{{ error }}");
+        </script>
+        {% endif %}
+
+        <h1>Transfer Money</h1>
+
+        <div class="transfer-section">
+            <form method="POST" class="transfer-form">
+                <input type="hidden" name="sender" value="{{ current_user }}">
+
+                <label for="recipient">Recipient username:</label><br>
+                <input type="text" name="recipient" required><br><br>
+
+                <label for="amount">Amount:</label><br>
+                <input type="number" name="amount" step="0.01" required><br><br>
+
+                <label for="message">Message:</label><br>
+                <textarea name="message" rows="4" cols="30" placeholder="Write a nice message..."></textarea><br><br>
+
+                <button type="submit" class="btn">Transfer</button>
+            </form>
+
+            <div class="contacts">
+                <h2>Contacts</h2>
+                <div class="contact-list">
+                    {% for contact in contacts %}
+                    {% if contact['contact'] %}
+                    <a href="{{ url_for('conversation', contact=contact['contact']) }}" class="btn contact-btn">
+                        <img src="{{ url_for('static', filename='icons/user-solid.svg') }}" class="icon" alt="Contact">
+                        {{ contact['contact'] }}
+                    </a>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <p>
+            <a href="{{ url_for('dashboard') }}" class="btn back-btn">
+                <img src="{{ url_for('static', filename='icons/arrow-left-solid.svg') }}" class="icon"
+                    alt="Back to Dashboard"> Back to Dashboard
+            </a>
+        </p>
+    </div>
+
+</body>
+
+</html>

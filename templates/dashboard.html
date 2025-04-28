@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - FlaskBank</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Welcome, {{ username }}!</h1>
+
+        <h2>Your Balance:</h2>
+        <p><strong>${{ balance }}</strong></p><br>
+
+        <h2>Last 3 Transactions:</h2>
+        <div class="transactions">
+            {% for transaction in transactions %}
+            <p>{{ transaction }}</p>
+            {% endfor %}
+        </div>
+
+        <div class="btn-container">
+            <a href="{{ url_for('transfer') }}" class="btn">
+                <img src="{{ url_for('static', filename='icons/right-left-solid.svg') }}" class="icon"
+                    alt="Make a Transfer"> Make a Transfer
+            </a>
+            <a href="{{ url_for('logout') }}" class="btn logout">
+                <img src="{{ url_for('static', filename='icons/right-from-bracket-solid.svg') }}" class="icon"
+                    alt="Logout"> Logout
+            </a>
+        </div>
+    </div>
+
+</body>
+
+</html>
